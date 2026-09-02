@@ -36,7 +36,7 @@ function TaskFlowS() {
 
   return (
     <div>
-      <h1>Task Flow Service</h1>
+      <h1>Task Flow</h1>
       <p>Version: {info.version}</p>
       <p>App: {info.app}</p>
     </div>
