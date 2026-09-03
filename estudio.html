@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Estudio: jwt-auth-demo</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --border: #334155;
+      --tag-bg: #0369a1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .section-title {
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin: 2.5rem 0 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.4rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .file-name {
+      font-family: monospace;
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .tag {
+      background-color: var(--tag-bg);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+
+    li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    code {
+      font-family: monospace;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      color: #38bdf8;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Guía de Estudio: jwt-auth-demo</h1>
+      <p class="subtitle">Estructura, carpetas y componentes explicados al detalle</p>
+    </header>
+
+    <!-- INFRAESTRUCTURA Y CONFIGURACIÓN -->
+    <h2 class="section-title">📌 Conceptos Generales e Infraestructura</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">.github/workflows/*.yml</span>
+          <span class="tag">CI / CD</span>
+        </div>
+        <p>Configuración de GitHub Actions para integración y despliegue continuo.</p>
+        <ul>
+          <li><strong>Builds automáticos:</strong> Levanta un servidor Linux en cada push o PR.</li>
+          <li><strong>Testing y Linter:</strong> Ejecuta <code>npm install</code>, chequeo de tipos, linter y build[cite: 5].</li>
+          <li><strong>Despliegue:</strong> Publica la app automáticamente en GitHub Pages usando <code>build:pages</code>[cite: 5].</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">node_modules/</span>
+          <span class="tag">npm</span>
+        </div>
+        <p>Carpeta donde npm descarga todas las dependencias del proyecto[cite: 2, 5].</p>
+        <ul>
+          <li><strong>Ignorada en Git:</strong> Incluida explícitamente en el archivo <code>.gitignore</code>[cite: 2].</li>
+          <li><strong>Regenerable:</strong> Se restaura completamente ejecutando <code>npm install</code>.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">vite.config.ts</span>
+          <span class="tag">Bundler</span>
+        </div>
+        <p>Configuración del empaquetador y servidor de desarrollo Vite.</p>
+        <ul>
+          <li><strong>Plugins:</strong> Habilita Fast Refresh para React mediante <code>@vitejs/plugin-react</code>[cite: 5, 7].</li>
+          <li><strong>Ruta Base (base):</strong> Adapta subcarpetas para despliegues en GitHub Pages[cite: 1, 5].</li>
+          <li><strong>Build:</strong> Define alias de ruta y la carpeta de salida <code>dist</code>[cite: 2].</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ESTRUCTURA SRC -->
+    <h2 class="section-title">🌐 src/config & 🛡️ src/context</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">src/config/apiUrl.ts</span>
+          <span class="tag">Config</span>
+        </div>
+        <p>Contiene la constante <code>API_URL</code> con la dirección base del servidor en AWS CloudFront para centralizar peticiones HTTP[cite: 1].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">src/context/AuthContext.tsx</span>
+          <span class="tag">State</span>
+        </div>
+        <p>Administra el estado global de sesión de la aplicación[cite: 16].</p>
+        <ul>
+          <li>Valida la existencia previa de un token JWT almacenado[cite: 16].</li>
+          <li>Provee funciones globales <code>login()</code> y <code>logout()</code>[cite: 16].</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section-title">⚓ src/hooks</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">useAuth.ts</span>
+          <span class="tag">Hook</span>
+        </div>
+        <p>Acceso directo al estado y funciones expuestas por el <code>AuthContext</code>.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">useProjects.ts</span>
+          <span class="tag">Hook</span>
+        </div>
+        <p>Consulta la lista de proyectos manejando estados de carga (<code>loading</code>), error (<code>error</code>) y recarga (<code>refetch</code>).</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">useProjectForm.ts</span>
+          <span class="tag">Hook</span>
+        </div>
+        <p>Controla el estado, captura y validaciones del formulario de proyectos.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">useTasks.ts</span>
+          <span class="tag">Hook</span>
+        </div>
+        <p>Obtiene y actualiza la lista de tareas recibidas desde el servidor backend.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">🧩 src/components</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">ProjectForm.tsx</span>
+          <span class="tag">UI</span>
+        </div>
+        <p>Formulario para la creación de proyectos con validaciones de nombre (mínimo 3 caracteres) y estados de envío[cite: 12].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">ProjectList.tsx</span>
+          <span class="tag">UI</span>
+        </div>
+        <p>Muestra el catálogo de proyectos con retroalimentación visual de carga (<code>CircularProgress</code>) y alertas de error[cite: 13].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">TaskForm.tsx</span>
+          <span class="tag">UI</span>
+        </div>
+        <p>Formulario para añadir tareas vinculadas a un proyecto mediante select, campos de título, descripción, prioridad y fecha[cite: 14].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">TaskList.tsx</span>
+          <span class="tag">UI</span>
+        </div>
+        <p>Lista de tareas que destaca visualmente su estado y prioridad usando etiquetas de colores (<code>Chip</code> de Material UI)[cite: 15].</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">📄 src/pages & 🔌 src/service</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">LoginPage.tsx</span>
+          <span class="tag">Page</span>
+        </div>
+        <p>Vista para inicio de sesión. Captura datos de acceso, invoca la autenticación y realiza la navegación hacia el Dashboard[cite: 18].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">DashboardPage.tsx</span>
+          <span class="tag">Page</span>
+        </div>
+        <p>Panel principal privado[cite: 17]. Integra dentro de tarjetas (<code>Paper</code>) los componentes de listas, formularios y botón de cierre de sesión[cite: 17].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">httpClient.ts</span>
+          <span class="tag">Service</span>
+        </div>
+        <p>Instancia de Axios que adjunta de forma automática el encabezado <code>Authorization: Bearer &lt;token&gt;</code> a las solicitudes.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">authService.ts</span>
+          <span class="tag">Service</span>
+        </div>
+        <p>Consume el endpoint <code>/login</code> y administra la persistencia del token JWT dentro del <code>localStorage</code>.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">projectService.ts / taskService.ts</span>
+          <span class="tag">Service</span>
+        </div>
+        <p>Contienen las llamadas HTTP (<code>GET</code> y <code>POST</code>) para consultar y crear proyectos y tareas en el backend.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">📄 Archivos Raíz de src/</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">main.tsx</span>
+          <span class="tag">Core</span>
+        </div>
+        <p>Punto de entrada de React 19[cite: 10]. Monta el componente raíz <code>&lt;App/&gt;</code> sobre el elemento HTML <code>#root</code> en modo estricto[cite: 4, 10].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">App.tsx</span>
+          <span class="tag">Core</span>
+        </div>
+        <p>Orquestador global[cite: 9]. Aplica el tema visual MUI, inicializa el <code>AuthProvider</code> y define el mapa de rutas navegables[cite: 9].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">ProtectedRoute.tsx</span>
+          <span class="tag">Core</span>
+        </div>
+        <p>Guardián de navegación[cite: 11]. Redirige a usuarios no autenticados a <code>/login</code> y autoriza el paso a las páginas privadas con <code>&lt;Outlet/&gt;</code>[cite: 11].</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="file-name">types.ts / vite-env.d.ts</span>
+          <span class="tag">TypeScript</span>
+        </div>
+        <p>Definición de interfaces TypeScript compartidas (modelos de datos) y declaración de tipos para las variables de entorno de Vite.</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>jwt-auth-demo • Guía de arquitectura de software para estudio personal</p>
+    </footer>
+  </div>
+
+</body>
+</html>
